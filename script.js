@@ -1,5 +1,82 @@
 // script.js
 
+function importFromText() {
+    const importText = document.getElementById("importTextArea").value;
+    
+    // Regular expressions for each section of the imported text
+
+    // Client information
+    const clientInfoRegex = /NOM ET PRÉNOM\s*(.*?)\s*TITRE\s*(.*?)\s*COURRIEL\s*(.*?)\s*TÉLÉPHONE\s*(\d+)/;
+
+    // Moving information
+    const movingInfoRegex = /DATE\s*(\d{4}-\d{2}-\d{2})\s*DATE FLEXIBLE \?\s*(.*?)\s*ADRESSE DE DÉPART \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DÉPART\s*(.*?)\s*ADRESSE DESTINATION \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DESTINATION\s*(.*?)\s*/;
+
+    // Inventory (electro) items
+    const inventoryRegex = /GRAND RÉFRIGÉRATEUR\s*(\d+)\s*RÉFRIGÉRATEUR\s*(\d+)\s*PETIT RÉFRIGÉRATEUR\s*(\d+)\s*GROS CONGÉLATEUR\s*(\d+)\s*CONGÉLATEUR MOYEN\s*(\d+)\s*CUISINIÈRES - FOUR\/POÊLE\s*(\d+)\s*LAVE VAISSELLE\s*(\d+)\s*SÉCHEUSE\s*(\d+)\s*LAVEUSE\s*(\d+)\s*LAVEUSE - SECHEUSE SUPERPOSÉES \?\s*(.*?)/;
+
+    // Bedroom furniture
+    const bedroomFurnitureRegex = /BASE DE LIT KING\s*(\d+)\s*BASE DE LIT QUEEN\s*(\d+)\s*BASE DE LIT DOUBLE\s*(\d+)\s*BASE DE LIT SIMPLE\s*(\d+)\s*MATELAS KING\s*(\d+)\s*MATELAS QUEEN\s*(\d+)\s*MATELAS DOUBLE\s*(\d+)\s*MATELAS SIMPLE \(PETIT\)\s*(\d+)\s*SOMMIER KING\s*(\d+)\s*SOMMIER QUEEN\s*(\d+)\s*SOMMIER DOUBLE\s*(\d+)\s*SOMMIER SIMPLE\s*(\d+)\s*COMMODE\s*(\d+)\s*TABLE DE CHEVET\s*(\d+)\s*ARMOIRE \(2 PORTES\)\s*(\d+)\s*ARMOIRE \(1 PORTE\)\s*(\d+)\s*BERCEAU\s*(\d+)/;
+
+    // Living room and other furniture
+    const livingRoomFurnitureRegex = /CAUSEUSE \(DIVAN 2 PLACES\)\s*(\d+)\s*SOFA\/CANAPÉ \(3 PLACES\)\s*(\d+)\s*FAUTEUIL\s*(\d+)\s*MEUBLE TÉLÉ \(GRAND\)\s*(\d+)\s*TÉLÉVISEUR \(GRAND\)\s*(\d+)\s*TÉLÉVISEUR \(MOYEN\/PETIT\)\s*(\d+)\s*TABLE DE CAFÉ, DE BOUT\s*(\d+)\s*TABLES À MANGER OU DE TERRASSE\s*(\d+)\s*CHAISES\s*(\d+)\s*BIBILIOTHEQUE\s*(\d+)\s*ARMOIRE DE DOSSIER À TIROIR\s*(\d+)\s*DESSERTE, HUCHE, CABINETS\s*(\d+)\s*MIROIRS - CADRES\s*(\d+)\s*GRAND TAPIS\s*(\d+)\s*TAPIS \(PETIT OU MOYEN\)\s*(\d+)\s*LAMPES ET ABAT-JOURS\s*(\d+)\s*COFFRE FORT\s*(\d+)\s*PIANO\s*(.*?)\s*BARBECUE\s*(\d+)\s*VALISES\s*(\d+)\s*PNEUS\s*(\d+)\s*TAPIS ROULANT\s*(\d+)\s*VÉLOS STATIONNAIRES\s*(\d+)\s*BICYCLETTES \/ VÉLOS\s*(\d+)\s*TABLE DE BILLARD\s*(\d+)/;
+
+    // More details
+    const moreDetailsRegex = /PLUS DE PRÉCISIONS\s*(.*?)$/;
+
+    // Match client data
+    const clientMatch = importText.match(clientInfoRegex);
+    if (clientMatch) {
+        document.getElementById("s_client_name").value = clientMatch[1];
+        document.getElementById("s_client_phn_number").value = clientMatch[4];
+    }
+
+    // Match moving info
+    const movingMatch = importText.match(movingInfoRegex);
+    console.log(movingMatch);
+    if (movingMatch) {
+        document.getElementById("s_moving_date").value = movingMatch[1];
+        document.getElementById("flexible_date_comment").value = movingMatch[2];
+        document.getElementById("textBox_Starting_address").value = movingMatch[3];
+        document.getElementById("textBox_Starting_address_floor").value = movingMatch[4];
+        document.getElementById("textBox_Destination_address").value = movingMatch[5];
+        document.getElementById("textBox_Destination_address_floor").value = movingMatch[6];
+    }
+
+    // Match inventory (electro) items
+    const inventoryMatch = importText.match(inventoryRegex);
+    if (inventoryMatch) {
+        document.getElementById("inventoryContainer").innerHTML = `
+            <div>Frigo grand: <input type="number" value="${inventoryMatch[1]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
+            <div>Frigo petit: <input type="number" value="${inventoryMatch[3]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
+            <div>Cuisinière: <input type="number" value="${inventoryMatch[6]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
+            <div>Laveuse: <input type="number" value="${inventoryMatch[9]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
+            <div>Sècheuse: <input type="number" value="${inventoryMatch[8]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
+        `;
+    }
+
+    // Bedroom furniture
+    const bedroomFurnitureMatch = importText.match(bedroomFurnitureRegex);
+    if (bedroomFurnitureMatch) {
+        // You can process and display each bedroom furniture item here
+        console.log(bedroomFurnitureMatch);
+    }
+
+    // Living room and other furniture
+    const livingRoomFurnitureMatch = importText.match(livingRoomFurnitureRegex);
+    if (livingRoomFurnitureMatch) {
+        // Process living room and other furniture items here
+        console.log(livingRoomFurnitureMatch);
+    }
+
+    // More details
+    const moreDetailsMatch = importText.match(moreDetailsRegex);
+    if (moreDetailsMatch) {
+        document.getElementById("textBox_MoreDetails").value = moreDetailsMatch[1];
+    }
+}
+
+
+
 function addInventoryItem() {
     const container = document.getElementById("inventoryContainer");
     const itemDiv = document.createElement("div");
@@ -23,6 +100,8 @@ function addInventoryItem() {
 function generateContract() {
     const s_client_name = document.getElementById("s_client_name").value;
     const s_client_phn_number = document.getElementById("s_client_phn_number").value;
+    const flexible_date = document.getElementById("flexible_date").checked;
+    const flexible_date_comment = document.getElementById("flexible_date_comment").value;
     const s_moving_date = document.getElementById("s_moving_date").value;
     const s_moving_time = (document.getElementById("s_moving_time_hours").value < 10 ? "0" : "") + document.getElementById("s_moving_time_hours").value + ":" + (document.getElementById("s_moving_time_minutes").value < 10 ? "0" : "") + document.getElementById("s_moving_time_minutes").value;
     const s_moving_date2 = document.getElementById("s_moving_date2").value;
@@ -47,6 +126,8 @@ function generateContract() {
         const quantity = item.children[1].value;
         inventory += `<li>${name} - Quantité / Quantity: ${quantity}</li>`;
     });
+
+    const moreDetails = document.getElementById("textBox_MoreDetails").value;
 
     const contractHtml = `
 <!DOCTYPE html>
@@ -87,6 +168,8 @@ function generateContract() {
         ${s_moving_date || s_moving_date2 || s_moving_date3 ? `
         <div class="section">
             <h2>Date de Déménagement / Moving Date</h2>
+            <p>Flexible: ${flexible_date ? "Oui" : "Non"}<br>
+            ${flexible_date && flexible_date_comment ? `, ${flexible_date_comment}` : ""}</p>
             <ul>
                 ${s_moving_date ? `<li>${s_moving_date} ${s_moving_time}</li>` : ""}
                 ${s_moving_date2 ? `<li>${s_moving_date2} ${s_moving_time2}</li>` : ""}
@@ -134,6 +217,13 @@ function generateContract() {
             <h2>Inventaire / Inventory</h2>
             <ul>${inventory}</ul>
         </div>
+
+        ${moreDetails ?? `
+        <div class="section">
+            <h2>Plus de Détails / More Details</h2>
+            <p>${moreDetails}</p>
+        </div>
+        `}
 
         <h3>CETTE OFFRE EXPIRE DANS 48H / THIS OFFER EXPIRES IN 48H</h3>
         <p>Pour accepter notre offre un acompte de ${dHourly_rate} est requis.<br>

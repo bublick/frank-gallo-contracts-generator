@@ -7,6 +7,11 @@
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-6">Importer à partir du texte / Import from Text</h2>
+        <textarea id="importTextArea" class="w-full px-3 py-2 mb-4 border rounded-lg" rows="4"></textarea>
+        <button onclick="importFromText()" class="w-full px-4 py-2 bg-blue-500 text-white font-bold rounded-lg">Importer / Import</button>
+    </div>
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold mb-6">Informations pour le contrat de déménagement</h2>
 
         <!-- Client Name -->
@@ -38,19 +43,30 @@
             <input type="number" id="s_moving_time3_hours" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="1" min="08" max="23">
             <input type="number" id="s_moving_time3_minutes" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="0" min="0" max="59">
         </div>
+        <!-- Checkbox and commennt if this can be flexible -->
+        <div class="flex mb-4">
+            <div class="w-5/12">
+                <label for="flexible_date" class="block text-lg font-medium">Date flexible / Flexible Date</label>
+                <input type="checkbox" id="flexible_date" class="w-6 h-6 border rounded-lg text-left">
+            </div>
+            <div class="w-7/12">
+                <label for="flexible_date_comment" class="block text-lg font-medium">Commentaire / Comment</label>
+                <input type="text" id="flexible_date_comment" class="w-full px-3 py-2 mb-4 border rounded-lg">
+            </div>
+        </div>
 
         <!-- Starting and Destination Address -->
         <label for="textBox_Starting_address" class="block text-lg font-medium">Adresse de départ / Starting Address</label>
         <input type="text" id="textBox_Starting_address" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <label for="textBox_Starting_address_floor" class="block text-lg font-medium">Étage de départ / Starting Floor</label>
-        <input type="number" id="textBox_Starting_address_floor" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <input type="text" id="textBox_Starting_address_floor" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <label for="textBox_Destination_address" class="block text-lg font-medium">Adresse de destination / Destination Address</label>
         <input type="text" id="textBox_Destination_address" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <label for="textBox_Destination_address_floor" class="block text-lg font-medium">Étage de destination / Destination Floor</label>
-        <input type="number" id="textBox_Destination_address_floor" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <input type="text" id="textBox_Destination_address_floor" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <!-- Number of Trucks -->
         <label for="dnb_of_trucks" class="block text-lg font-medium">Nombre de camions / Number of Trucks</label>
@@ -105,6 +121,10 @@
         <h3 class="text-lg font-medium">Inventaire / Inventory</h3>
         <div id="inventoryContainer" class="mb-4"></div>
         <button onclick="addInventoryItem()" class="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4">Ajouter un article / Add Item</button>
+
+        <!-- PLUS DE PRÉCISIONS -->
+        <h3 class="text-lg font-medium">Plus de précisions / More Details</h3>
+        <textarea id="textBox_MoreDetails" class="w-full px-3 py-2 mb-4 border rounded-lg" rows="4"></textarea>
 
         <!-- Generate Contract Button -->
         <button onclick="generateContract()" class="w-full px-4 py-2 bg-green-600 text-white font-bold rounded-lg">Générer le contrat / Generate Contract</button>
