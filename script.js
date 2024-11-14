@@ -24,8 +24,11 @@ function generateContract() {
     const s_client_name = document.getElementById("s_client_name").value;
     const s_client_phn_number = document.getElementById("s_client_phn_number").value;
     const s_moving_date = document.getElementById("s_moving_date").value;
+    const s_moving_time = (document.getElementById("s_moving_time_hours").value < 10 ? "0" : "") + document.getElementById("s_moving_time_hours").value + ":" + (document.getElementById("s_moving_time_minutes").value < 10 ? "0" : "") + document.getElementById("s_moving_time_minutes").value;
     const s_moving_date2 = document.getElementById("s_moving_date2").value;
+    const s_moving_time2 = (document.getElementById("s_moving_time2_hours").value < 10 ? "0" : "") + document.getElementById("s_moving_time2_hours").value + ":" + (document.getElementById("s_moving_time2_minutes").value < 10 ? "0" : "") + document.getElementById("s_moving_time2_minutes").value;
     const s_moving_date3 = document.getElementById("s_moving_date3").value;
+    const s_moving_time3 = (document.getElementById("s_moving_time3_hours").value < 10 ? "0" : "") + document.getElementById("s_moving_time3_hours").value + ":" + (document.getElementById("s_moving_time3_minutes").value < 10 ? "0" : "") + document.getElementById("s_moving_time3_minutes").value;
     const textBox_Starting_address = document.getElementById("textBox_Starting_address").value;
     const textBox_Starting_address_floor = document.getElementById("textBox_Starting_address_floor").value;
     const textBox_Destination_address = document.getElementById("textBox_Destination_address").value;
@@ -55,10 +58,10 @@ function generateContract() {
         body { font-family: Arial, sans-serif; color: #333; padding: 20px; background-color: #f7f7f7; }
         .header { text-align: center; margin-bottom: 20px; }
         .header svg { width: 100px; height: 100px; margin-bottom: 10px; }
-        .header h1 { color: #4CAF50; font-size: 24px; font-weight: bold; }
+        .header h1 { color: #E34234; font-size: 24px; font-weight: bold; }
         .content { padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
         .section { margin-bottom: 20px; }
-        .section h2 { font-size: 18px; color: #4CAF50; margin-bottom: 10px; }
+        .section h2 { font-size: 18px; color: #E34234; margin-bottom: 10px; }
         .section p, .section ul { font-size: 14px; line-height: 1.5; }
         .section ul { margin-left: 20px; }
         .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #777; }
@@ -69,7 +72,7 @@ function generateContract() {
     <div class="header">
         <!-- Updated SVG Logo -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="40" fill="#4CAF50" />
+            <circle cx="50" cy="50" r="40" fill="#E34234" />
             <text x="50" y="55" font-size="18" fill="white" text-anchor="middle" font-family="Arial">LOGO</text>
         </svg>
         <h1>Contrat de Déménagement / Moving Contract</h1>
@@ -85,9 +88,9 @@ function generateContract() {
         <div class="section">
             <h2>Date de Déménagement / Moving Date</h2>
             <ul>
-                ${s_moving_date ? `<li>${s_moving_date}</li>` : ""}
-                ${s_moving_date2 ? `<li>${s_moving_date2}</li>` : ""}
-                ${s_moving_date3 ? `<li>${s_moving_date3}</li>` : ""}
+                ${s_moving_date ? `<li>${s_moving_date} ${s_moving_time}</li>` : ""}
+                ${s_moving_date2 ? `<li>${s_moving_date2} ${s_moving_time2}</li>` : ""}
+                ${s_moving_date3 ? `<li>${s_moving_date3} ${s_moving_time3}</li>` : ""}
             </ul>
         </div>
         ` : ""}

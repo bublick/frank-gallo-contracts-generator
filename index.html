@@ -9,21 +9,37 @@
     <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
         <h2 class="text-2xl font-bold mb-6">Informations pour le contrat de déménagement</h2>
 
+        <!-- Client Name -->
         <label for="s_client_name" class="block text-lg font-medium">Nom du client / Client Name</label>
         <input type="text" id="s_client_name" class="w-full px-3 py-2 mb-4 border rounded-lg" placeholder="Nom du client">
 
+        <!-- Client Phone -->
         <label for="s_client_phn_number" class="block text-lg font-medium">Téléphone du client / Client Phone</label>
         <input type="tel" id="s_client_phn_number" class="w-full px-3 py-2 mb-4 border rounded-lg" placeholder="Téléphone du client">
 
+        <!-- Moving Dates and Times -->
         <label for="s_moving_date" class="block text-lg font-medium">Date de déménagement / Moving Date</label>
-        <input type="date" id="s_moving_date" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <div class="flex mb-4">
+            <input type="date" id="s_moving_date" class="w-full px-3 py-2 border rounded-lg" placeholder="Date de déménagement">
+            <input type="number" id="s_moving_time_hours" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="1" min="08" max="23">
+            <input type="number" id="s_moving_time_minutes" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="0" min="0" max="59" format="">
+        </div>
 
         <label for="s_moving_date2" class="block text-lg font-medium">Date de déménagement 2 / Moving Date 2</label>
-        <input type="date" id="s_moving_date2" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <div class="flex mb-4">
+            <input type="date" id="s_moving_date2" class="w-full px-3 py-2 border rounded-lg">
+            <input type="number" id="s_moving_time2_hours" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="1" min="08" max="23">
+            <input type="number" id="s_moving_time2_minutes" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="0" min="0" max="59">
+        </div>
 
         <label for="s_moving_date3" class="block text-lg font-medium">Date de déménagement 3 / Moving Date 3</label>
-        <input type="date" id="s_moving_date3" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <div class="flex mb-4">
+            <input type="date" id="s_moving_date3" class="w-full px-3 py-2 border rounded-lg">
+            <input type="number" id="s_moving_time3_hours" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="1" min="08" max="23">
+            <input type="number" id="s_moving_time3_minutes" class="w-32 ml-2 px-3 py-2 border rounded-lg" value="0" min="0" max="59">
+        </div>
 
+        <!-- Starting and Destination Address -->
         <label for="textBox_Starting_address" class="block text-lg font-medium">Adresse de départ / Starting Address</label>
         <input type="text" id="textBox_Starting_address" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
@@ -36,21 +52,27 @@
         <label for="textBox_Destination_address_floor" class="block text-lg font-medium">Étage de destination / Destination Floor</label>
         <input type="number" id="textBox_Destination_address_floor" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Number of Trucks -->
         <label for="dnb_of_trucks" class="block text-lg font-medium">Nombre de camions / Number of Trucks</label>
         <input type="number" id="dnb_of_trucks" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Hourly Rate -->
         <label for="dHourly_rate" class="block text-lg font-medium">Taux horaire / Hourly Rate</label>
         <input type="number" id="dHourly_rate" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Estimated Hours -->
         <label for="dheures" class="block text-lg font-medium">Heures estimées / Estimated Hours</label>
         <input type="number" id="dheures" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Plastic Bags -->
         <label for="nPlastic_bags" class="block text-lg font-medium">Nombre de housses en plastique / Plastic Bags</label>
         <input type="number" id="nPlastic_bags" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Wardrobe Boxes -->
         <label for="nWardrobe_boxes" class="block text-lg font-medium">Nombre de boîtes garde-robes / Wardrobe Boxes</label>
         <input type="number" id="nWardrobe_boxes" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Professional Movers -->
         <label class="block text-lg font-medium">Nombre de déménageurs professionnels / Professional Movers</label>
         <div class="flex items-center mb-4">
             <input type="radio" name="professionalMovers" value="2" id="movers_2" class="mr-2">
@@ -61,9 +83,11 @@
             <label for="movers_4">4</label>
         </div>
 
+        <!-- Time Fields -->
         <label for="textBox_InitialTimeContract" class="block text-lg font-medium">Temps initial / Initial Time</label>
-        <input type="number" id="textBox_InitialTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <input type="number" id="textBox_InitialTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg" value="1">
 
+        <!-- Loading, Drive, Unloading Times -->
         <label for="textBox_loadingTimeContract" class="block text-lg font-medium">Temps de chargement / Loading Time</label>
         <input type="number" id="textBox_loadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
@@ -73,13 +97,16 @@
         <label for="textBox_UnloadingTimeContract" class="block text-lg font-medium">Temps de déchargement / Unloading Time</label>
         <input type="number" id="textBox_UnloadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Final Distance -->
         <label for="textBox_FinalDistance" class="block text-lg font-medium">Distance finale / Final Distance</label>
         <input type="number" id="dDistance" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
+        <!-- Inventory Section -->
         <h3 class="text-lg font-medium">Inventaire / Inventory</h3>
         <div id="inventoryContainer" class="mb-4"></div>
         <button onclick="addInventoryItem()" class="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4">Ajouter un article / Add Item</button>
 
+        <!-- Generate Contract Button -->
         <button onclick="generateContract()" class="w-full px-4 py-2 bg-green-600 text-white font-bold rounded-lg">Générer le contrat / Generate Contract</button>
     </div>
 
