@@ -2,37 +2,26 @@
 
 function importFromText() {
     const importText = document.getElementById("importTextArea").value;
-    
-    // Regular expressions for each section of the imported text
 
-    // Client information
+    // Regex patterns
     const clientInfoRegex = /NOM ET PRÉNOM\s*(.*?)\s*TITRE\s*(.*?)\s*COURRIEL\s*(.*?)\s*TÉLÉPHONE\s*(\d+)/;
-
-    // Moving information
     const movingInfoRegex = /DATE\s*(\d{4}-\d{2}-\d{2})\s*DATE FLEXIBLE \?\s*(.*?)\s*ADRESSE DE DÉPART \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DÉPART\s*(.*?)\s*ADRESSE DESTINATION \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DESTINATION\s*(.*?)\s*/;
+    
+    // Regex to capture any "ÉTAPE" section with its items, excluding "PLUS DE PRÉCISIONS"
+    const stepRegex = /ÉTAPE\s*\d+\s*-\s*([\s\S]*?)(?=ÉTAPE\s*\d+|PLUS DE PRÉCISIONS|$)/g;
+    
+    // Regex to capture "PLUS DE PRÉCISIONS" details
+    const moreDetailsRegex = /PLUS DE PRÉCISIONS\s*([\s\S]*?)$/;
 
-    // Inventory (electro) items
-    const inventoryRegex = /GRAND RÉFRIGÉRATEUR\s*(\d+)\s*RÉFRIGÉRATEUR\s*(\d+)\s*PETIT RÉFRIGÉRATEUR\s*(\d+)\s*GROS CONGÉLATEUR\s*(\d+)\s*CONGÉLATEUR MOYEN\s*(\d+)\s*CUISINIÈRES - FOUR\/POÊLE\s*(\d+)\s*LAVE VAISSELLE\s*(\d+)\s*SÉCHEUSE\s*(\d+)\s*LAVEUSE\s*(\d+)\s*LAVEUSE - SECHEUSE SUPERPOSÉES \?\s*(.*?)/;
-
-    // Bedroom furniture
-    const bedroomFurnitureRegex = /BASE DE LIT KING\s*(\d+)\s*BASE DE LIT QUEEN\s*(\d+)\s*BASE DE LIT DOUBLE\s*(\d+)\s*BASE DE LIT SIMPLE\s*(\d+)\s*MATELAS KING\s*(\d+)\s*MATELAS QUEEN\s*(\d+)\s*MATELAS DOUBLE\s*(\d+)\s*MATELAS SIMPLE \(PETIT\)\s*(\d+)\s*SOMMIER KING\s*(\d+)\s*SOMMIER QUEEN\s*(\d+)\s*SOMMIER DOUBLE\s*(\d+)\s*SOMMIER SIMPLE\s*(\d+)\s*COMMODE\s*(\d+)\s*TABLE DE CHEVET\s*(\d+)\s*ARMOIRE \(2 PORTES\)\s*(\d+)\s*ARMOIRE \(1 PORTE\)\s*(\d+)\s*BERCEAU\s*(\d+)/;
-
-    // Living room and other furniture
-    const livingRoomFurnitureRegex = /CAUSEUSE \(DIVAN 2 PLACES\)\s*(\d+)\s*SOFA\/CANAPÉ \(3 PLACES\)\s*(\d+)\s*FAUTEUIL\s*(\d+)\s*MEUBLE TÉLÉ \(GRAND\)\s*(\d+)\s*TÉLÉVISEUR \(GRAND\)\s*(\d+)\s*TÉLÉVISEUR \(MOYEN\/PETIT\)\s*(\d+)\s*TABLE DE CAFÉ, DE BOUT\s*(\d+)\s*TABLES À MANGER OU DE TERRASSE\s*(\d+)\s*CHAISES\s*(\d+)\s*BIBILIOTHEQUE\s*(\d+)\s*ARMOIRE DE DOSSIER À TIROIR\s*(\d+)\s*DESSERTE, HUCHE, CABINETS\s*(\d+)\s*MIROIRS - CADRES\s*(\d+)\s*GRAND TAPIS\s*(\d+)\s*TAPIS \(PETIT OU MOYEN\)\s*(\d+)\s*LAMPES ET ABAT-JOURS\s*(\d+)\s*COFFRE FORT\s*(\d+)\s*PIANO\s*(.*?)\s*BARBECUE\s*(\d+)\s*VALISES\s*(\d+)\s*PNEUS\s*(\d+)\s*TAPIS ROULANT\s*(\d+)\s*VÉLOS STATIONNAIRES\s*(\d+)\s*BICYCLETTES \/ VÉLOS\s*(\d+)\s*TABLE DE BILLARD\s*(\d+)/;
-
-    // More details
-    const moreDetailsRegex = /PLUS DE PRÉCISIONS\s*(.*?)$/;
-
-    // Match client data
+    // Match client information
     const clientMatch = importText.match(clientInfoRegex);
     if (clientMatch) {
         document.getElementById("s_client_name").value = clientMatch[1];
         document.getElementById("s_client_phn_number").value = clientMatch[4];
     }
 
-    // Match moving info
+    // Match moving information
     const movingMatch = importText.match(movingInfoRegex);
-    console.log(movingMatch);
     if (movingMatch) {
         document.getElementById("s_moving_date").value = movingMatch[1];
         document.getElementById("flexible_date_comment").value = movingMatch[2];
@@ -42,40 +31,39 @@ function importFromText() {
         document.getElementById("textBox_Destination_address_floor").value = movingMatch[6];
     }
 
-    // Match inventory (electro) items
-    const inventoryMatch = importText.match(inventoryRegex);
-    if (inventoryMatch) {
-        document.getElementById("inventoryContainer").innerHTML = `
-            <div>Frigo grand: <input type="number" value="${inventoryMatch[1]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
-            <div>Frigo petit: <input type="number" value="${inventoryMatch[3]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
-            <div>Cuisinière: <input type="number" value="${inventoryMatch[6]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
-            <div>Laveuse: <input type="number" value="${inventoryMatch[9]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
-            <div>Sècheuse: <input type="number" value="${inventoryMatch[8]}" class="w-full px-3 py-2 mb-4 border rounded-lg"></div>
-        `;
-    }
-
-    // Bedroom furniture
-    const bedroomFurnitureMatch = importText.match(bedroomFurnitureRegex);
-    if (bedroomFurnitureMatch) {
-        // You can process and display each bedroom furniture item here
-        console.log(bedroomFurnitureMatch);
-    }
-
-    // Living room and other furniture
-    const livingRoomFurnitureMatch = importText.match(livingRoomFurnitureRegex);
-    if (livingRoomFurnitureMatch) {
-        // Process living room and other furniture items here
-        console.log(livingRoomFurnitureMatch);
-    }
-
-    // More details
+    // Capture and set "PLUS DE PRÉCISIONS" in the "More Details" field
     const moreDetailsMatch = importText.match(moreDetailsRegex);
     if (moreDetailsMatch) {
-        document.getElementById("textBox_MoreDetails").value = moreDetailsMatch[1];
+        document.getElementById("textBox_MoreDetails").value = moreDetailsMatch[1].trim();
+    }
+
+    // Clear existing inventory items
+    const container = document.getElementById("inventoryContainer");
+    container.innerHTML = '';
+
+    // Loop through each "ÉTAPE" section and add items to inventory
+    let stepMatch;
+    while ((stepMatch = stepRegex.exec(importText)) !== null) {
+        const itemsText = stepMatch[1];
+        
+        // Regex for individual item names and quantities
+        const itemRegex = /^([A-ZÀ-Ÿ\s\-()\/]+)\s*(\d+|Non|Moyen)?$/gm;
+        
+        let itemMatch;
+        while ((itemMatch = itemRegex.exec(itemsText)) !== null) {
+            const itemName = itemMatch[1].trim();
+            const itemQuantity = itemMatch[2] ? itemMatch[2].trim() : '0';
+
+            // Add a new inventory item to the container
+            addInventoryItem();
+            
+            // Set the name and quantity for the last added item
+            const itemDiv = container.lastElementChild;
+            itemDiv.querySelector("input[type='text']").value = itemName;
+            itemDiv.querySelector("input[type='number']").value = isNaN(parseInt(itemQuantity)) ? '0' : itemQuantity;
+        }
     }
 }
-
-
 
 function addInventoryItem() {
     const container = document.getElementById("inventoryContainer");
