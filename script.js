@@ -1,69 +1,131 @@
 // script.js
+// const objectConfig = {
+//     "RÉFRIGÉRATEUR": { 
+//         removeLength: 14, 
+//         volume: 1, 
+//         loadingTime: 0.15, 
+//         unloadingTime: 0.1,
+//         variants: {
+//             "GRAND": { volume: 1.3, loadingTime: 0.2, unloadingTime: 0.15 },
+//             "PETIT": { volume: 0.5, loadingTime: 0.15, unloadingTime: 0.1 }
+//         }
+//     },
+//     "GROS CONGÉLATEUR": { 
+//         removeLength: 17, 
+//         volume: 1, 
+//         loadingTime: 0.15, 
+//         unloadingTime: 0.12 
+//     },
+//     "CONGÉLATEUR MOYEN": { 
+//         removeLength: 18, 
+//         volume: 0.6, 
+//         loadingTime: 0.1, 
+//         unloadingTime: 0.08 
+//     },
+//     "CUISINIÈRES - FOUR/POÊLE": { 
+//         removeLength: 25, 
+//         volume: 0.6, 
+//         loadingTime: 0.1, 
+//         unloadingTime: 0.08 
+//     },
+//     "LAVE VAISSELLE": { 
+//         removeLength: 15, 
+//         volume: 0.4, 
+//         loadingTime: 0.1, 
+//         unloadingTime: 0.07 
+//     }
+// };
+
 
 function importFromText() {
     const importText = document.getElementById("importTextArea").value;
+    const s_Lines = importText.split('\n').map(line => line.trim()); // Split into lines and trim
+    const inventoryContainer = document.getElementById("inventoryContainer");
+    let n_Line = 0;
 
-    // Regex patterns
-    const clientInfoRegex = /NOM ET PRÉNOM\s*(.*?)\s*TITRE\s*(.*?)\s*COURRIEL\s*(.*?)\s*TÉLÉPHONE\s*(\d+)/;
-    const movingInfoRegex = /DATE\s*(\d{4}-\d{2}-\d{2})\s*DATE FLEXIBLE \?\s*(.*?)\s*ADRESSE DE DÉPART \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DÉPART\s*(.*?)\s*ADRESSE DESTINATION \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DESTINATION\s*(.*?)\s*/;
-    
-    // Regex to capture any "ÉTAPE" section with its items, excluding "PLUS DE PRÉCISIONS"
-    const stepRegex = /ÉTAPE\s*\d+\s*-\s*([\s\S]*?)(?=ÉTAPE\s*\d+|PLUS DE PRÉCISIONS|$)/g;
-    
-    // Regex to capture "PLUS DE PRÉCISIONS" details
-    const moreDetailsRegex = /PLUS DE PRÉCISIONS\s*([\s\S]*?)$/;
+    while (n_Line < s_Lines.length) {
+        const line = s_Lines[n_Line];
 
-    // Match client information
-    const clientMatch = importText.match(clientInfoRegex);
-    if (clientMatch) {
-        document.getElementById("s_client_name").value = clientMatch[1];
-        document.getElementById("s_client_phn_number").value = clientMatch[4];
+
+
+        n_Line++;
     }
 
-    // Match moving information
-    const movingMatch = importText.match(movingInfoRegex);
-    if (movingMatch) {
-        document.getElementById("s_moving_date").value = movingMatch[1];
-        document.getElementById("flexible_date_comment").value = movingMatch[2];
-        document.getElementById("textBox_Starting_address").value = movingMatch[3];
-        document.getElementById("textBox_Starting_address_floor").value = movingMatch[4];
-        document.getElementById("textBox_Destination_address").value = movingMatch[5];
-        document.getElementById("textBox_Destination_address_floor").value = movingMatch[6];
-    }
-
-    // Capture and set "PLUS DE PRÉCISIONS" in the "More Details" field
-    const moreDetailsMatch = importText.match(moreDetailsRegex);
-    if (moreDetailsMatch) {
-        document.getElementById("textBox_MoreDetails").value = moreDetailsMatch[1].trim();
-    }
-
-    // Clear existing inventory items
-    const container = document.getElementById("inventoryContainer");
-    container.innerHTML = '';
-
-    // Loop through each "ÉTAPE" section and add items to inventory
-    let stepMatch;
-    while ((stepMatch = stepRegex.exec(importText)) !== null) {
-        const itemsText = stepMatch[1];
-        
-        // Regex for individual item names and quantities
-        const itemRegex = /^([A-ZÀ-Ÿ\s\-()\/]+)\s*(\d+|Non|Moyen)?$/gm;
-        
-        let itemMatch;
-        while ((itemMatch = itemRegex.exec(itemsText)) !== null) {
-            const itemName = itemMatch[1].trim();
-            const itemQuantity = itemMatch[2] ? itemMatch[2].trim() : '0';
-
-            // Add a new inventory item to the container
-            addInventoryItem();
-            
-            // Set the name and quantity for the last added item
-            const itemDiv = container.lastElementChild;
-            itemDiv.querySelector("input[type='text']").value = itemName;
-            itemDiv.querySelector("input[type='number']").value = isNaN(parseInt(itemQuantity)) ? '0' : itemQuantity;
-        }
+    function addInventoryItem() {
+        const itemHTML = `
+            <div>
+                <input type="text" placeholder="Item Name">
+                <input type="number" placeholder="Quantity">
+            </div>`;
+        inventoryContainer.insertAdjacentHTML('beforeend', itemHTML);
     }
 }
+
+
+// function importFromText() {
+//     const importText = document.getElementById("importTextArea").value;
+
+//     // Regex patterns
+//     const clientInfoRegex = /NOM ET PRÉNOM\s*(.*?)\s*TITRE\s*(.*?)\s*COURRIEL\s*(.*?)\s*TÉLÉPHONE\s*(\d+)/;
+//     const movingInfoRegex = /DATE\s*(\d{4}-\d{2}-\d{2})\s*DATE FLEXIBLE \?\s*(.*?)\s*ADRESSE DE DÉPART \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DÉPART\s*(.*?)\s*ADRESSE DESTINATION \+ VILLE\s*(.*?)\s*ÉTAGE ADRESSE DE DESTINATION\s*(.*?)\s*/;
+    
+//     // Regex to capture any "ÉTAPE" section with its items, excluding "PLUS DE PRÉCISIONS"
+//     const stepRegex = /ÉTAPE\s*\d+\s*-\s*([\s\S]*?)(?=ÉTAPE\s*\d+|PLUS DE PRÉCISIONS|$)/g;
+    
+//     // Regex to capture "PLUS DE PRÉCISIONS" details
+//     const moreDetailsRegex = /PLUS DE PRÉCISIONS\s*([\s\S]*?)$/;
+
+//     // Match client information
+//     const clientMatch = importText.match(clientInfoRegex);
+//     if (clientMatch) {
+//         document.getElementById("s_client_name").value = clientMatch[1];
+//         document.getElementById("s_client_phn_number").value = clientMatch[4];
+//     }
+
+//     // Match moving information
+//     const movingMatch = importText.match(movingInfoRegex);
+//     if (movingMatch) {
+//         document.getElementById("s_moving_date").value = movingMatch[1];
+//         document.getElementById("flexible_date_comment").value = movingMatch[2];
+//         document.getElementById("textBox_Starting_address").value = movingMatch[3];
+//         document.getElementById("textBox_Starting_address_floor").value = movingMatch[4];
+//         document.getElementById("textBox_Destination_address").value = movingMatch[5];
+//         document.getElementById("textBox_Destination_address_floor").value = movingMatch[6];
+//     }
+
+//     // Capture and set "PLUS DE PRÉCISIONS" in the "More Details" field
+//     const moreDetailsMatch = importText.match(moreDetailsRegex);
+//     if (moreDetailsMatch) {
+//         document.getElementById("textBox_MoreDetails").value = moreDetailsMatch[1].trim();
+//     }
+
+//     // Clear existing inventory items
+//     const container = document.getElementById("inventoryContainer");
+//     container.innerHTML = '';
+
+//     // Loop through each "ÉTAPE" section and add items to inventory
+//     let stepMatch;
+//     while ((stepMatch = stepRegex.exec(importText)) !== null) {
+//         const itemsText = stepMatch[1];
+        
+//         // Regex for individual item names and quantities
+//         const itemRegex = /^([A-ZÀ-Ÿ\s\-()\/]+)\s*(\d+|Non|Moyen)?$/gm;
+        
+//         let itemMatch;
+//         while ((itemMatch = itemRegex.exec(itemsText)) !== null) {
+//             const itemName = itemMatch[1].trim();
+//             const itemQuantity = itemMatch[2] ? itemMatch[2].trim() : '0';
+
+//             // Add a new inventory item to the container
+//             addInventoryItem();
+            
+//             // Set the name and quantity for the last added item
+//             const itemDiv = container.lastElementChild;
+//             itemDiv.querySelector("input[type='text']").value = itemName;
+//             itemDiv.querySelector("input[type='number']").value = isNaN(parseInt(itemQuantity)) ? '0' : itemQuantity;
+//         }
+//     }
+// }
 
 function addInventoryItem() {
     const container = document.getElementById("inventoryContainer");

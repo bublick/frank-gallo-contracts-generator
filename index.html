@@ -105,22 +105,26 @@
 
         <!-- Loading, Drive, Unloading Times -->
         <label for="textBox_loadingTimeContract" class="block text-lg font-medium">Temps de chargement / Loading Time</label>
-        <input type="number" id="textBox_loadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
+        <input type="number" id="textBox_loadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg" value="0">
+
+        <label for="textBox_UnloadingTimeContract" class="block text-lg font-medium">Temps de déchargement / Unloading Time</label>
+        <input type="number" id="textBox_UnloadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg" value="0">
 
         <label for="textBox_DriveTimeContract" class="block text-lg font-medium">Temps de route / Drive Time</label>
         <input type="number" id="textBox_DriveTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
-
-        <label for="textBox_UnloadingTimeContract" class="block text-lg font-medium">Temps de déchargement / Unloading Time</label>
-        <input type="number" id="textBox_UnloadingTimeContract" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <!-- Final Distance -->
         <label for="textBox_FinalDistance" class="block text-lg font-medium">Distance finale / Final Distance</label>
         <input type="number" id="dDistance" class="w-full px-3 py-2 mb-4 border rounded-lg">
 
         <!-- Inventory Section -->
-        <h3 class="text-lg font-medium">Inventaire / Inventory</h3>
+        <h3 class="text-lg font-medium flex items-center cursor-pointer" onclick="toggleInventoryVisibility()">
+            Inventaire / Inventory
+            <span id="inventoryToggleIcon" class="ml-2 transform">&#9660;</span> <!-- Triangle vers le bas -->
+        </h3>
         <div id="inventoryContainer" class="mb-4"></div>
-        <button onclick="addInventoryItem()" class="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4">Ajouter un article / Add Item</button>
+        <button id="addItemButton" onclick="addInventoryItem()" class="px-4 py-2 bg-blue-500 text-white rounded-lg mb-4">Ajouter un article / Add Item</button>
+        
 
         <!-- PLUS DE PRÉCISIONS -->
         <h3 class="text-lg font-medium">Plus de précisions / More Details</h3>
@@ -130,6 +134,33 @@
         <button onclick="generateContract()" class="w-full px-4 py-2 bg-green-600 text-white font-bold rounded-lg">Générer le contrat / Generate Contract</button>
     </div>
 
-    <script src="script.js"></script>
+
+    <style>
+        #inventoryContainer,
+        #addItemButton {
+          display: none; /* Cacher par défaut */
+        }
+    </style>
+
+    <style>
+        /* Style pour chaque article d'inventaire */
+        .inventory-item-container {
+            border: 1px solid #d1d5db; /* Bordure légère */
+            border-radius: 8px; /* Coins arrondis */
+            padding: 1rem; /* Espacement interne */
+            margin-bottom: 1rem; /* Espacement en bas de chaque bloc */
+            background-color: #f9fafb; /* Couleur de fond pour distinction */
+        }
+    </style>
+
+      
+    <script src="script.js" defer></script>
+    <script src="parser.js" defer></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            //loadDefaultInventoryItems();
+        });
+    </script>
 </body>
 </html>
+
